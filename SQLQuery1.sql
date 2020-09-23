@@ -1,4 +1,5 @@
 ﻿SELECT * FROM UserProfile
 
-SELECT id, [name] FROM Tag
-ORDER BY [name]
+SELECT Id, [Name] 
+                        FROM Tag
+                        WHERE  Id = 2
