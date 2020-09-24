@@ -77,12 +77,12 @@ namespace TabloidMVC.Controllers
         /// Add CreateView for a NewPost
         /// </summary>
         /// <returns></returns>
-        public IActionResult CreateNewPosts()
-        {
-            int userId = GetCurrentUserProfileId();
-            var posts = _postRepository.GetAllUserPosts(userId);
-            return View(posts);
-        }
+        ////public IActionResult CreateNewPosts()
+        //{
+           //// int userId = GetCurrentUserProfileId();
+            //var posts = _postRepository.GetAllUserPosts(userId);
+            ////return View(posts);
+        //}
 
         // GET: PostController/Edit/5
         public ActionResult Edit(int id)
