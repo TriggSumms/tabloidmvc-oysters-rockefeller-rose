@@ -5,10 +5,10 @@
 }
 
 
-<h1>@Model.Post.Title)</h1>
+<h1>@Model.Post.Title</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-outline-primary mx-1" asp-route-id="@Model.Post.Id" asp-action="Create">Add Comment</a>
 </p>
 <table class="table">
     <thead>
@@ -23,7 +23,7 @@
                 Content
             </th>
             <th>
-                Post Date
+                Creation Date
             </th>
             <th></th>
         </tr>
@@ -44,11 +44,17 @@
                 @Html.DisplayFor(modelItem => item.CreateDateTime)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) | 
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary mx-1" title="Edit">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-primary mx-1" title="Delete">
+                    <i class="fas fa-trash"></i>
+                </a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<div>
+    <a class="btn btn-outline-primary mx-1" asp-controller="Post" asp-action="Details">Back to Post</a>
+</div>

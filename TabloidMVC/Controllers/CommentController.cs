@@ -35,38 +35,34 @@ namespace TabloidMVC.Controllers
             };
             return View(vm);
         }
-        /*
-        public IActionResult Create()
+
+        public IActionResult Create(int id)
         {
-            var vm = new PostCreateViewModel();
-            return View(vm);
+            Comment comment = new Comment();
+            comment.PostId = id;
+            return View(comment);
         }
 
         [HttpPost]
-        public IActionResult Create(PostCreateViewModel vm)
+        public IActionResult Create(Comment comment)
         {
             try
             {
-                vm.Post.CreateDateTime = DateAndTime.Now;
-                vm.Post.IsApproved = true;
-                vm.Post.UserProfileId = GetCurrentUserProfileId();
+                comment.CreateDateTime = DateAndTime.Now;
+                comment.UserProfileId = GetCurrentUserId();
+                _commentRepo.Add(comment);
 
-                _commentRepository.Add(vm.Post);
-
-                return RedirectToAction("Details", new { id = vm.Post.Id });
-            } 
+                return RedirectToAction("Index", new { id = comment.PostId });
+            }
             catch
             {
-                vm.CategoryOptions = _categoryRepository.GetAll();
-                return View(vm);
+                return View(comment);
             }
         }
-
-        private int GetCurrentUserProfileId()
+        private int GetCurrentUserId()
         {
             string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return int.Parse(id);
         }
-        */
     }
 }
