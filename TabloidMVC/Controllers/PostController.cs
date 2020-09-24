@@ -73,12 +73,24 @@ namespace TabloidMVC.Controllers
                 return View(vm);
             }
         }
+        /// <summary>
+        /// Add CreateView for a NewPost
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult CreateNewPosts()
+        {
+            int userId = GetCurrentUserProfileId();
+            var posts = _postRepository.GetAllUserPosts(userId);
+            return View(posts);
+        }
 
         // GET: PostController/Edit/5
-        public IActionResult Edit(int id)
+        public ActionResult Edit(int id)
         {
-            Post post = _postRepository.GetPublishedPostById(id);
             int userId = GetCurrentUserProfileId();
+            Post post = _postRepository.GetUserPostById(id, userId);
+            
+           
             var categoryOptions = _categoryRepository.GetAll();
 
             if (post == null)
@@ -101,23 +113,19 @@ namespace TabloidMVC.Controllers
         // POST: PostController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Post post)
+        public ActionResult Edit(int id, PostCreateViewModel vm)
         {
             try
             {
-                _postRepository.UpdatePost(post);
+                vm.Post.IsApproved = true;
+                _postRepository.UpdatePost(vm.Post);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                PostCreateViewModel vm = new PostCreateViewModel()
+    
 
-                {
-
-                    Post = post
-                };
-
-                return View(post);
+                return View(vm);
             }
         }
 
