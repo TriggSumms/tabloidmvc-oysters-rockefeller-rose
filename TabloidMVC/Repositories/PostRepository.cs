@@ -42,7 +42,7 @@ namespace TabloidMVC.Repositories
                     {
                         posts.Add(NewPostFromReader(reader));
                     }
-
+                    
                     reader.Close();
 
                     return posts;

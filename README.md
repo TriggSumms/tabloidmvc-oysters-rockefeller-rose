@@ -1,3 +1,13 @@
+<br/>
+<p align="center">
+    <a >
+        <img width="50%" src="https://res.cloudinary.com/triggsumms/image/upload/v1600955162/Dr.Teeth/ku8wvmqjy8masijpinpl.jpg"  alt="TRACKER logo">
+    </a>
+</p>
+
+<br/>
+
+
 # Tabloid MVC
 
 Good news, everyone, our [Tabloid CLI Proof of Concept](https://github.com/nashville-software-school/TabloidCLI) did it's job! We were able to test our business idea after a minimal amount of development time. And we learned people don't want to keep a list of other people's blog content. What they really want is to make their own content.
