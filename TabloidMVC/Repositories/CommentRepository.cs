@@ -97,6 +97,7 @@ namespace TabloidMVC.Repositories
                 }
             }
         }
+        
         public void Add(Comment comment)
         {
             using (var conn = Connection)
@@ -145,6 +146,24 @@ namespace TabloidMVC.Repositories
                     cmd.Parameters.AddWithValue("@UserProfileId", comment.UserProfileId);
                     cmd.Parameters.AddWithValue("@id", comment.Id);
 
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public void Delete(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            DELETE FROM Comment
+                            WHERE Id = @id
+                        ";
+
+                    cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
                 }
             }

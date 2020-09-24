@@ -74,12 +74,34 @@ namespace TabloidMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Comment comment)
+        public ActionResult Edit (Comment comment)
         {
             try
             {
                 _commentRepo.Update(comment);
                 return RedirectToAction("Index", new { id = comment.PostId });
+            }
+            catch (Exception ex)
+            {
+                return View(comment);
+            }
+        }
+        public ActionResult Delete(int id)
+        {
+            Comment comment = _commentRepo.GetCommentById(id);
+            return View(comment);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, Comment comment)
+        {
+            try
+            {
+                Comment comments = _commentRepo.GetCommentById(id);
+                int postId = comments.PostId;
+                _commentRepo.Delete(id);
+                return RedirectToAction("Index", new { id = postId});
             }
             catch (Exception ex)
             {

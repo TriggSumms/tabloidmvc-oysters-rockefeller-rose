@@ -27,29 +27,23 @@
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CreateDateTime" class="control-label"></label>
-                <input asp-for="CreateDateTime" class="form-control" />
+                <input asp-for="CreateDateTime" type="hidden" class="form-control" />
                 <span asp-validation-for="CreateDateTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PostId" class="control-label"></label>
-                <input asp-for="PostId" class="form-control" />
+                <input asp-for="PostId" type="hidden" class="form-control" />
                 <span asp-validation-for="PostId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserProfileId" class="control-label"></label>
-                <input asp-for="UserProfileId" class="form-control" />
+                <input asp-for="UserProfileId" type="hidden" class="form-control" />
                 <span asp-validation-for="UserProfileId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input class="btn btn-outline-primary mx-1" type="submit" value="Save" />
+                <a asp-route-id="@Model.PostId" asp-action="Index" >Cancel</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-route-id="@Model.PostId" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
