@@ -10,18 +10,19 @@
 
 
 
-<h3>Are you sure you want to delete your Category ....@Model.Name?</h3>
+<h1>Are you sure you want to delete your Category ....@Model.Name? </h1>
+@*<h4>Cmon now...your gonna delete your "hot ToPiC NaMe" below....</h4>*@
 <div>
 
     <hr />
     <dl class="row">
-        <h4>Cmon now...your gonna delete your "hot ToPiC" below....</h4>
-        <dt class="col-sm-2">
+        
+        @*<dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Id)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Id)
-        </dd>
+        </dd>*@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -32,7 +33,7 @@
 
     <form asp-action="Delete">
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <input type="submit" value="NEVERMIND, DO NOT DELETE" asp-action="Index" class="btn btn-danger" /> |
+        <input type="submit" value="NEVERMIND, DO NOT DELETE" asp-action="Index" class="btn btn-light" /> 
 
     </form>
 </div>
