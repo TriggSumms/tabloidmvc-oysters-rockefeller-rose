@@ -1,5 +1,7 @@
-﻿SELECT * FROM UserProfile
+﻿UPDATE Tag
+                            SET [Name] = 'Family'
+                            WHERE Id = 4
 
-SELECT Id, [Name] 
+SELECT Id, [name] 
                         FROM Tag
-                        WHERE  Id = 2
+                       
