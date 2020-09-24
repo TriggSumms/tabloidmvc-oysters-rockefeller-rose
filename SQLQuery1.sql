@@ -1,7 +1,6 @@
-﻿UPDATE Tag
+﻿UPDATE post
                             SET [Name] = 'Family'
                             WHERE Id = 4
 
-SELECT Id, [name] 
-                        FROM Tag
+SELECT * FROM post 
                        
