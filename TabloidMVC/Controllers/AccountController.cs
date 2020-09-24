@@ -55,5 +55,97 @@ namespace TabloidMVC.Controllers
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+
+
+        /// <summary>
+        /// THIS BEGINS THE USER PROFILE CONTROLLER VIEWS
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Index()
+        {
+            var userProfiles = _userProfileRepository.GetAllUsers();
+            return View(userProfiles);
+        }
+
+        // GET: UserProfileController/Details/5
+        public ActionResult Details(int id)
+        {
+            var userProfile = _userProfileRepository.GetUserById(id);
+            if (userProfile == null)
+            {
+                
+               // userProfile = _postRepository.GetUserPostById(id, userId);
+                if (userProfile == null)
+                {
+                    return NotFound();
+                }
+            }
+            return View(userProfile);
+        }
+
+
+            // GET: UserProfileController/Create
+            //public ActionResult Create()
+            //{
+            //    return View();
+            //}
+
+            //// POST: UserProfileController/Create
+            //[HttpPost]
+            //[ValidateAntiForgeryToken]
+            //public ActionResult Create(IFormCollection collection)
+            //{
+            //    try
+            //    {
+            //        return RedirectToAction(nameof(Index));
+            //    }
+            //    catch
+            //    {
+            //        return View();
+            //    }
+            //}
+
+            //// GET: UserProfileController/Edit/5
+            //public ActionResult Edit(int id)
+            //{
+            //    return View();
+            //}
+
+            //// POST: UserProfileController/Edit/5
+            //[HttpPost]
+            //[ValidateAntiForgeryToken]
+            //public ActionResult Edit(int id, IFormCollection collection)
+            //{
+            //    try
+            //    {
+            //        return RedirectToAction(nameof(Index));
+            //    }
+            //    catch
+            //    {
+            //        return View();
+            //    }
+            //}
+
+            //// GET: UserProfileController/Delete/5
+            //public ActionResult Delete(int id)
+            //{
+            //    return View();
+            //}
+
+            //// POST: UserProfileController/Delete/5
+            //[HttpPost]
+            //[ValidateAntiForgeryToken]
+            //public ActionResult Delete(int id, IFormCollection collection)
+            //{
+            //    try
+            //    {
+            //        return RedirectToAction(nameof(Index));
+            //    }
+            //    catch
+            //    {
+            //        return View();
+            //    }
+            //}
+        }
     }
-}
