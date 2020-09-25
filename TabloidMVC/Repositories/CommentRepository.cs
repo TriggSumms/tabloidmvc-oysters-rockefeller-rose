@@ -63,21 +63,23 @@ namespace TabloidMVC.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                       SELECT p.Id, p.Title, p.Content, 
+                       SELECT c.Id AS CommentId, c.Subject, c.Content, c.CreateDateTime,
+                              c.PostId, c.UserProfileId,
+                              p.Id, p.Title, p.Content, 
                               p.ImageLocation AS HeaderImage,
                               p.CreateDateTime, p.PublishDateTime, p.IsApproved,
                               p.CategoryId, p.UserProfileId,
-                              c.[Name] AS CategoryName,
+                              cg.[Name] AS CategoryName,
                               u.FirstName, u.LastName, u.DisplayName, 
                               u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
                               u.UserTypeId, 
                               ut.[Name] AS UserTypeName
-                         FROM Post p
-                              LEFT JOIN Category c ON p.CategoryId = c.id
-                              LEFT JOIN UserProfile u ON p.UserProfileId = u.id
+                         FROM Comment c
+                              LEFT JOIN Post p ON c.PostId = p.id
+                              LEFT JOIN Category cg ON p.CategoryId = cg.id
+                              LEFT JOIN UserProfile u ON c.UserProfileId = u.id
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                        WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME()
-                              AND p.id = @id";
+                        WHERE c.Id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
                     var reader = cmd.ExecuteReader();
@@ -95,49 +97,7 @@ namespace TabloidMVC.Repositories
                 }
             }
         }
-
-        public Comment GetUserCommentById(int id, int userProfileId)
-        {
-            using (var conn = Connection)
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"
-                       SELECT p.Id, p.Title, p.Content, 
-                              p.ImageLocation AS HeaderImage,
-                              p.CreateDateTime, p.PublishDateTime, p.IsApproved,
-                              p.CategoryId, p.UserProfileId,
-                              c.[Name] AS CategoryName,
-                              u.FirstName, u.LastName, u.DisplayName, 
-                              u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
-                              u.UserTypeId, 
-                              ut.[Name] AS UserTypeName
-                         FROM Post p
-                              LEFT JOIN Category c ON p.CategoryId = c.id
-                              LEFT JOIN UserProfile u ON p.UserProfileId = u.id
-                              LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                        WHERE p.id = @id AND p.UserProfileId = @userProfileId";
-
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
-                    var reader = cmd.ExecuteReader();
-
-                    Comment comment = null;
-
-                    if (reader.Read())
-                    {
-                        comment = NewCommentFromReader(reader);
-                    }
-
-                    reader.Close();
-
-                    return comment;
-                }
-            }
-        }
-
-
+        
         public void Add(Comment comment)
         {
             using (var conn = Connection)
@@ -161,6 +121,54 @@ namespace TabloidMVC.Repositories
                 }
             }
         }
+        public void Update(Comment comment)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            UPDATE Comment
+                            SET 
+                                Subject = @Subject, 
+                                Content = @Content, 
+                                CreateDateTime = @createDateTime,
+                                PostId = @postId,
+                                UserProfileId = @UserProfileId
+                            WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@Subject", comment.Subject);
+                    cmd.Parameters.AddWithValue("@Content", comment.Content);
+                    cmd.Parameters.AddWithValue("@CreateDateTime", comment.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@PostId", comment.PostId);
+                    cmd.Parameters.AddWithValue("@UserProfileId", comment.UserProfileId);
+                    cmd.Parameters.AddWithValue("@id", comment.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public void Delete(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            DELETE FROM Comment
+                            WHERE Id = @id
+                        ";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
 
         private Comment NewCommentFromReader(SqlDataReader reader)
         {
