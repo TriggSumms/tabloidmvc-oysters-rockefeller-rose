@@ -16,23 +16,25 @@ namespace TabloidMVC.Controllers
     {
         private readonly ICommentRepository _commentRepo;
         private readonly IPostRepository _postRepo;
-        private readonly ICategoryRepository _categoryRepo;
+        private readonly IUserProfileRepository _userRepo;
 
-        public CommentController(ICommentRepository commentRepository, IPostRepository postRepository, ICategoryRepository categoryRepository)
+        public CommentController(ICommentRepository commentRepository, IPostRepository postRepository, IUserProfileRepository userRepository)
         {
             _commentRepo = commentRepository;
             _postRepo = postRepository;
-            _categoryRepo = categoryRepository;
+            _userRepo = userRepository;
         }
 
         public ActionResult Index(int id)
         {
             Post post = _postRepo.GetPublishedPostById(id);
             List<Comment> comments = _commentRepo.GetAllPostComments(id);
+            UserProfile user = _userRepo.GetByCommentUserId(post.UserProfileId);
             CommentViewModel vm = new CommentViewModel()
             {
                 Comments = comments,
-                Post = post
+                Post = post,
+                User = user
             };
             return View(vm);
         }
@@ -62,9 +64,10 @@ namespace TabloidMVC.Controllers
         }
         public ActionResult Edit(int id)
         {
+            int userId = GetCurrentUserId();
             Comment comment = _commentRepo.GetCommentById(id);
 
-            if (comment == null)
+            if (comment == null || comment.UserProfileId != userId)
             {
                 return NotFound();
             }

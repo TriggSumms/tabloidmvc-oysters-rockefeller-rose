@@ -196,5 +196,103 @@ namespace TabloidMVC.Repositories
                 }
             };
         }
+        public List<Post> GetAllUserPosts(int userProfileId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                       SELECT p.Id, p.Title, p.Content, 
+                              p.ImageLocation AS HeaderImage,
+                              p.CreateDateTime, p.PublishDateTime, p.IsApproved,
+                              p.CategoryId, p.UserProfileId,
+                              c.[Name] AS CategoryName,
+                              u.FirstName, u.LastName, u.DisplayName, 
+                              u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
+                              u.UserTypeId, 
+                              ut.[Name] AS UserTypeName
+                         FROM Post p
+                              LEFT JOIN Category c ON p.CategoryId = c.id
+                              LEFT JOIN UserProfile u ON p.UserProfileId = u.id
+                              LEFT JOIN UserType ut ON u.UserTypeId = ut.id
+                        WHERE p.UserProfileId = @userProfileId
+                     ORDER BY p.PublishDateTime DESC";
+
+                    cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
+                    var reader = cmd.ExecuteReader();
+
+                    var posts = new List<Post>();
+
+                    while (reader.Read())
+                    {
+                        posts.Add(NewPostFromReader(reader));
+                    }
+
+                    reader.Close();
+
+                    return posts;
+                }
+            }
+        }
+
+
+
+        public void UpdatePost(Post post)
+            {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                        cmd.CommandText = @"
+                            UPDATE Post
+                            SET 
+                                Title = @title, 
+                                Content = @content, 
+                                ImageLocation = @imageLocation, 
+                                CreateDateTime = @createDateTime, 
+                                PublishDateTime = @publishDateTime,
+                                IsApproved = @isApproved,
+		                        CategoryId = @categoryId,
+		                        UserProfileId = @userProfileId
+                            WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", post.Id);
+                    cmd.Parameters.AddWithValue("@title", post.Title);
+                        cmd.Parameters.AddWithValue("@content", post.Content);
+                        cmd.Parameters.AddWithValue("@imageLocation", DbUtils.ValueOrDBNull(post.ImageLocation));
+                        cmd.Parameters.AddWithValue("@createDateTime", post.CreateDateTime);
+                        cmd.Parameters.AddWithValue("@publishDateTime", DbUtils.ValueOrDBNull(post.PublishDateTime));
+                        cmd.Parameters.AddWithValue("@isApproved", post.IsApproved);
+                        cmd.Parameters.AddWithValue("@categoryId", post.CategoryId);
+                        cmd.Parameters.AddWithValue("@userProfileId", post.UserProfileId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+
+        public void DeletePost(int postId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            DELETE FROM Post
+                            WHERE Id = @id
+                        ";
+
+                    cmd.Parameters.AddWithValue("@id", postId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
-}
+    }
+
+
+                    
+

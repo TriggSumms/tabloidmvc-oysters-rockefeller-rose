@@ -54,8 +54,12 @@ namespace TabloidMVC.Repositories
                 }
             }
         }
+<<<<<<< HEAD
         //GetAllProcess being Initiated below
         public List<UserProfile> GetAllUserProfiles()
+=======
+        public UserProfile GetByCommentUserId(int id)
+>>>>>>> f042b6374a002dfe2a4f8847fb7b4fb2784cfa8b
         {
             using (var conn = Connection)
             {
@@ -68,6 +72,7 @@ namespace TabloidMVC.Repositories
                               ut.[Name] AS UserTypeName
                          FROM UserProfile u
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
+<<<<<<< HEAD
                             ORDER BY DisplayName
                         ";
                     // cmd.Parameters.AddWithValue("@email", email);
@@ -83,6 +88,18 @@ namespace TabloidMVC.Repositories
                     {
                         userProfile.Add(new UserProfile()
 
+=======
+                              LEFT JOIN Comment c ON u.Id = c.UserProfileId
+                        WHERE c.UserProfileId = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    UserProfile userProfile = null;
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        userProfile = new UserProfile()
+>>>>>>> f042b6374a002dfe2a4f8847fb7b4fb2784cfa8b
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Email = reader.GetString(reader.GetOrdinal("Email")),
@@ -97,8 +114,12 @@ namespace TabloidMVC.Repositories
                                 Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
                                 Name = reader.GetString(reader.GetOrdinal("UserTypeName"))
                             },
+<<<<<<< HEAD
 
                         });
+=======
+                        };
+>>>>>>> f042b6374a002dfe2a4f8847fb7b4fb2784cfa8b
                     }
 
                     reader.Close();
@@ -107,6 +128,7 @@ namespace TabloidMVC.Repositories
                 }
             }
         }
+<<<<<<< HEAD
 
 
         public UserProfile GetUserProfileById(int id)
@@ -194,6 +216,8 @@ namespace TabloidMVC.Repositories
                 }
             }
         }
+=======
+>>>>>>> f042b6374a002dfe2a4f8847fb7b4fb2784cfa8b
     }
 }
 
