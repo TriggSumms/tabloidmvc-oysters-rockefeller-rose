@@ -1,8 +1,12 @@
-﻿@model TabloidMVC.Models.ViewModels.CommentViewModel
+﻿@using System.Security.Claims;
+@model TabloidMVC.Models.ViewModels.CommentViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
+@{ int userId = GetCurrentUserId();}
+
+
 
 
 <h1>@Model.Post.Title</h1>
@@ -29,32 +33,42 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Comments) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserProfile.DisplayName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subject)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDateTime)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary mx-1" title="Edit">
-                    <i class="fas fa-pencil-alt"></i>
-                </a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-primary mx-1" title="Delete">
-                    <i class="fas fa-trash"></i>
-                </a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Comments)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserProfile.DisplayName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDateTime)
+                </td>
+                <td>
+                    @{if (userId == item.UserProfileId)
+                        { <text><a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary mx-1" title="Edit">
+        <i class="fas fa-pencil-alt"></i>
+</a></text>}
+                    }
+                    
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-primary mx-1" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <div>
     <a class="btn btn-outline-primary mx-1" asp-controller="Post" asp-action="Details" asp-route-id="@Model.Post.Id">Back to Post</a>
 </div>
+
+@{int GetCurrentUserId()
+    {
+        string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        return int.Parse(id);
+    }}
