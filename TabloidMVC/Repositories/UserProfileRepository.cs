@@ -109,7 +109,7 @@ namespace TabloidMVC.Repositories
         }
 
 
-        public UserProfile GetUserById(int id)
+        public UserProfile GetUserProfileById(int id)
         {
             using (var conn = Connection)
             {
@@ -160,6 +160,38 @@ namespace TabloidMVC.Repositories
                 }
 
 
+            }
+        }
+
+        public void UpdateUserProfile(UserProfile userProfile)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            UPDATE UserProfile
+                            SET 
+                                Email = @email, 
+                                FirstName = @firstName, 
+                                LastName = @lastName,
+                                DisplayName = @displayName,
+                                CreateDateTime = @createDateTime,
+                                ImageLocation = @imageLocation, 
+		                        UserTypeId = @userTypeId
+                            WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", userProfile.Id);
+                    cmd.Parameters.AddWithValue("@email", userProfile.Email);
+                    cmd.Parameters.AddWithValue("@firstName", userProfile.FirstName);
+                    cmd.Parameters.AddWithValue("@lastName", userProfile.LastName);
+                    cmd.Parameters.AddWithValue("@displayName", userProfile.DisplayName);
+                    cmd.Parameters.AddWithValue("@createDateTime", userProfile.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@imageLocation", DbUtils.ValueOrDBNull(userProfile.ImageLocation));
+                    //cmd.Parameters.AddWithValue("@isApproved", post.IsApproved);
+                    cmd.Parameters.AddWithValue("@userTypeId", userProfile.UserTypeId);
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
     }

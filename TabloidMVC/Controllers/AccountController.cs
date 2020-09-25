@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using TabloidMVC.Models;
+using TabloidMVC.Models.ViewModels;
 using TabloidMVC.Repositories;
 
 namespace TabloidMVC.Controllers
@@ -12,10 +14,12 @@ namespace TabloidMVC.Controllers
     public class AccountController : Controller
     {
         private readonly IUserProfileRepository _userProfileRepository;
+        private readonly IUserTypeRepository _userTypeRepository;
 
-        public AccountController(IUserProfileRepository userProfileRepository)
+        public AccountController(IUserProfileRepository userProfileRepository, IUserTypeRepository userTypeRepository)
         {
             _userProfileRepository = userProfileRepository;
+            _userTypeRepository = userTypeRepository;
         }
 
         public IActionResult Login()
@@ -71,7 +75,7 @@ namespace TabloidMVC.Controllers
         // GET: UserProfileController/Details/5
         public ActionResult Details(int id)
         {
-            var userProfile = _userProfileRepository.GetUserById(id);
+            var userProfile = _userProfileRepository.GetUserProfileById(id);
             if (userProfile == null)
             {
                 
@@ -84,68 +88,79 @@ namespace TabloidMVC.Controllers
             return View(userProfile);
         }
 
+        public ActionResult Edit(int id)
+        {
+            List<UserType> userTypes = _userTypeRepository.GetAllUserTypes();
 
-            // GET: UserProfileController/Create
-            //public ActionResult Create()
+            UserTypeEditViewModel vm = new UserTypeEditViewModel()
+            {
+                UserProfile = _userProfileRepository.GetUserProfileById(id),
+                UserTypes = userTypes
+            };
+
+            //if (owner == null)
             //{
-            //    return View();
+            //    return NotFound();
             //}
 
-            //// POST: UserProfileController/Create
-            //[HttpPost]
-            //[ValidateAntiForgeryToken]
-            //public ActionResult Create(IFormCollection collection)
-            //{
-            //    try
-            //    {
-            //        return RedirectToAction(nameof(Index));
-            //    }
-            //    catch
-            //    {
-            //        return View();
-            //    }
-            //}
-
-            //// GET: UserProfileController/Edit/5
-            //public ActionResult Edit(int id)
-            //{
-            //    return View();
-            //}
-
-            //// POST: UserProfileController/Edit/5
-            //[HttpPost]
-            //[ValidateAntiForgeryToken]
-            //public ActionResult Edit(int id, IFormCollection collection)
-            //{
-            //    try
-            //    {
-            //        return RedirectToAction(nameof(Index));
-            //    }
-            //    catch
-            //    {
-            //        return View();
-            //    }
-            //}
-
-            //// GET: UserProfileController/Delete/5
-            //public ActionResult Delete(int id)
-            //{
-            //    return View();
-            //}
-
-            //// POST: UserProfileController/Delete/5
-            //[HttpPost]
-            //[ValidateAntiForgeryToken]
-            //public ActionResult Delete(int id, IFormCollection collection)
-            //{
-            //    try
-            //    {
-            //        return RedirectToAction(nameof(Index));
-            //    }
-            //    catch
-            //    {
-            //        return View();
-            //    }
-            //}
+            return View(vm);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, UserProfile userProfile)
+        {
+            try
+            {
+                _userProfileRepository.UpdateUserProfile(userProfile);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View(userProfile);
+            }
+        }
+        //// GET: UserProfileController/Edit/5
+        //public ActionResult Edit(int id)
+        //{
+        //    return View();
+        //}
+
+        //// POST: UserProfileController/Edit/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(int id, IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
+
+        //// GET: UserProfileController/Delete/5
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
+
+        //// POST: UserProfileController/Delete/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Delete(int id, IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
+    }
     }

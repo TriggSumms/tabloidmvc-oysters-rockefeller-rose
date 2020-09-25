@@ -1,4 +1,6 @@
-﻿namespace TabloidMVC.Models
+﻿using System;
+
+namespace TabloidMVC.Models
 {
     public class UserType
     {
