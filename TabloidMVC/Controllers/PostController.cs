@@ -16,12 +16,14 @@ namespace TabloidMVC.Controllers
     {
         private readonly IPostRepository _postRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly ICommentRepository _commentRepository;
         private int userId;
 
-        public PostController(IPostRepository postRepository, ICategoryRepository categoryRepository)
+        public PostController(IPostRepository postRepository, ICategoryRepository categoryRepository,ICommentRepository commentRepository)
         {
             _postRepository = postRepository;
             _categoryRepository = categoryRepository;
+            _commentRepository = commentRepository;
         }
 
         public IActionResult Index()
@@ -144,10 +146,17 @@ namespace TabloidMVC.Controllers
         // POST: PostController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Post post)
+        public ActionResult Delete(int id, Post post, Comment comment)
         {
             try
             {
+              List<Comment> comments = _commentRepository.GetAllPostComments(id);
+                
+                foreach(var item in comments)
+                {
+                    _commentRepository.Delete(item.Id);
+                }
+                
                 _postRepository.DeletePost(id);
                 return RedirectToAction("Index");
             }
