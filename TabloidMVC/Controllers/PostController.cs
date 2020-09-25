@@ -134,7 +134,7 @@ namespace TabloidMVC.Controllers
         public ActionResult Delete(int id)
         {
             int userId = GetCurrentUserProfileId();
-            Post post = _postRepository.GetUserPostById(id, userId);
+            Post post = _postRepository.GetPublishedPostById(id);
         
                 
 
