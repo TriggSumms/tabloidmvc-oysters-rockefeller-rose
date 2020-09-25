@@ -18,17 +18,17 @@
 
                 <p class="text-black-50">Published on @Html.DisplayFor(model => model.PublishDateTime)</p>
 
-                @*<p class="text-secondary">Words in atricle = @Html.DisplayFor(Post.CountWordsInArticle(model => model.Content))</p>*@
+                <p class="text-secondary">Words in atricle = @Html.DisplayFor(model => model.Content))</p>
             </div>
 
-            @*@if (Model.EstimatedReadTime() == 1)
-        {
-            <p class="text-black-50">Estimated Read Time: @Model.EstimatedReadTime() min</p>
-        }
-        else
-        {
-            <p class="text-black-50">Estimated Read Time: @Model.EstimatedReadTime() mins</p>
-        }*@
+            @if (Model.EstimatedReadTime == 1)
+            {
+                <p class="text-black-50">Estimated Read Time: @Model.EstimatedReadTime min</p>
+            }
+            else
+            {
+                <p class="text-black-50">Estimated Read Time: @Model.EstimatedReadTime mins</p>
+            }
 
             <div class="row">
                 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary mx-1" title="Edit">
