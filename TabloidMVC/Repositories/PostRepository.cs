@@ -42,7 +42,7 @@ namespace TabloidMVC.Repositories
                     {
                         posts.Add(NewPostFromReader(reader));
                     }
-
+                    
                     reader.Close();
 
                     return posts;
@@ -131,7 +131,6 @@ namespace TabloidMVC.Repositories
                 }
             }
         }
-
 
         public void Add(Post post)
         {
