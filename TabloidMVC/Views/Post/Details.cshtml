@@ -12,9 +12,24 @@
                 <h1 class="text-black-50">@Model.Category.Name</h1>
             </div>
             <div class="row justify-content-between">
+
+
                 <p class="text-secondary">Written by @Model.UserProfile.DisplayName</p>
+
                 <p class="text-black-50">Published on @Html.DisplayFor(model => model.PublishDateTime)</p>
+
+                @*<p class="text-secondary">Words in atricle = @Html.DisplayFor(Post.CountWordsInArticle(model => model.Content))</p>*@
             </div>
+
+            @*@if (Model.estimatedReadTime() == 1)
+        {
+            <p class="text-black-50">Estimated Read Time: @Model.estimatedReadTime() min</p>
+        }
+        else
+        {
+            <p class="text-black-50">Estimated Read Time: @Model.estimatedReadTime() mins</p>
+        }*@
+
             <div class="row">
                 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary mx-1" title="Edit">
                     <i class="fas fa-pencil-alt"></i>
