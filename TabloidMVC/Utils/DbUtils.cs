@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Data.SqlClient;
+using TabloidMVC.Models;
 
 namespace TabloidMVC.Utils
 {
@@ -30,32 +31,6 @@ namespace TabloidMVC.Utils
             return value ?? DBNull.Value;
         }
 
-        public static void CountWordsInArticle(string column)
-        {
-            string str;
-            int i, words, l;
 
-            Console.Write("\n\nCount the total number of words in a string :\n");
-            Console.Write("------------------------------------------------------\n");
-            Console.Write("Input the string : ");
-            str = Console.ReadLine();
-
-            l = 0;
-            words = 1;
-
-            /* loop till end of string */
-            while (l <= str.Length - 1)
-            {
-                /* check whether the current character is white space or new line or tab character*/
-                if (str[l] == ' ' || str[l] == '\n' || str[l] == '\t')
-                {
-                    words++;
-                }
-
-                l++;
-            }
-
-            Console.Write("Total number of words is : {0}\n", words);
-        }
     }
 }

@@ -1,6 +1,5 @@
-﻿UPDATE post
-                            SET [Name] = 'Family'
-                            WHERE Id = 4
+﻿
 
-SELECT * FROM Comment
-                       
+SELECT *
+FROM Post
+WHERE Id = 5

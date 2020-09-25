@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Reflection.PortableExecutable;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
@@ -42,7 +43,7 @@ namespace TabloidMVC.Repositories
                     {
                         posts.Add(NewPostFromReader(reader));
                     }
-                    
+
                     reader.Close();
 
                     return posts;
@@ -237,16 +238,14 @@ namespace TabloidMVC.Repositories
             }
         }
 
-
-
         public void UpdatePost(Post post)
-            {
+        {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                        cmd.CommandText = @"
+                    cmd.CommandText = @"
                             UPDATE Post
                             SET 
                                 Title = @title, 
@@ -260,17 +259,17 @@ namespace TabloidMVC.Repositories
                             WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@id", post.Id);
                     cmd.Parameters.AddWithValue("@title", post.Title);
-                        cmd.Parameters.AddWithValue("@content", post.Content);
-                        cmd.Parameters.AddWithValue("@imageLocation", DbUtils.ValueOrDBNull(post.ImageLocation));
-                        cmd.Parameters.AddWithValue("@createDateTime", post.CreateDateTime);
-                        cmd.Parameters.AddWithValue("@publishDateTime", DbUtils.ValueOrDBNull(post.PublishDateTime));
-                        cmd.Parameters.AddWithValue("@isApproved", post.IsApproved);
-                        cmd.Parameters.AddWithValue("@categoryId", post.CategoryId);
-                        cmd.Parameters.AddWithValue("@userProfileId", post.UserProfileId);
-                        cmd.ExecuteNonQuery();
-                    }
+                    cmd.Parameters.AddWithValue("@content", post.Content);
+                    cmd.Parameters.AddWithValue("@imageLocation", DbUtils.ValueOrDBNull(post.ImageLocation));
+                    cmd.Parameters.AddWithValue("@createDateTime", post.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@publishDateTime", DbUtils.ValueOrDBNull(post.PublishDateTime));
+                    cmd.Parameters.AddWithValue("@isApproved", post.IsApproved);
+                    cmd.Parameters.AddWithValue("@categoryId", post.CategoryId);
+                    cmd.Parameters.AddWithValue("@userProfileId", post.UserProfileId);
+                    cmd.ExecuteNonQuery();
                 }
             }
+        }
 
         public void DeletePost(int postId)
         {
@@ -290,38 +289,5 @@ namespace TabloidMVC.Repositories
                 }
             }
         }
-
-        public void CountWordsInArticle()
-        {
-            string str;
-            int i, words, l;
-
-            Console.Write("\n\nCount the total number of words in a string :\n");
-            Console.Write("------------------------------------------------------\n");
-            Console.Write("Input the string : ");
-            str = Console.ReadLine();
-
-            l = 0;
-            words = 1;
-
-            /* loop till end of string */
-            while (l <= str.Length - 1)
-            {
-                /* check whether the current character is white space or new line or tab character*/
-                if (str[l] == ' ' || str[l] == '\n' || str[l] == '\t')
-                {
-                    words++;
-                }
-
-                l++;
-            }
-
-            Console.Write("Total number of words is : {0}\n", words);
-        }
     }
 }
-
-
-
-                    
-
