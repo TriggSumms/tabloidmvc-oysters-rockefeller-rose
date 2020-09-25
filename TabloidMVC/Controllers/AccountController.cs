@@ -9,6 +9,7 @@ using TabloidMVC.Models;
 using TabloidMVC.Models.ViewModels;
 using TabloidMVC.Repositories;
 
+
 namespace TabloidMVC.Controllers
 {
     public class AccountController : Controller
@@ -16,7 +17,9 @@ namespace TabloidMVC.Controllers
         private readonly IUserProfileRepository _userProfileRepository;
         private readonly IUserTypeRepository _userTypeRepository;
 
-        public AccountController(IUserProfileRepository userProfileRepository, IUserTypeRepository userTypeRepository)
+        public AccountController(
+            IUserProfileRepository userProfileRepository,
+            IUserTypeRepository userTypeRepository)
         {
             _userProfileRepository = userProfileRepository;
             _userTypeRepository = userTypeRepository;
@@ -66,20 +69,29 @@ namespace TabloidMVC.Controllers
         /// THIS BEGINS THE USER PROFILE CONTROLLER VIEWS
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
+        /// 
+
+        //public ActionResult Index()
+        //{
+        //    var userProfiles = _userProfileRepository.GetAllUserProfiles();
+        //    return View(userProfiles);
+        //}
+        public IActionResult Index()
         {
-            var userProfiles = _userProfileRepository.GetAllUsers();
+            List<UserProfile> userProfiles = _userProfileRepository.GetAllUserProfiles();
+
             return View(userProfiles);
         }
 
-        // GET: UserProfileController/Details/5
+
+
         public ActionResult Details(int id)
         {
             var userProfile = _userProfileRepository.GetUserProfileById(id);
             if (userProfile == null)
             {
-                
-               // userProfile = _postRepository.GetUserPostById(id, userId);
+
+                // userProfile = _postRepository.GetUserPostById(id, userId);
                 if (userProfile == null)
                 {
                     return NotFound();
@@ -88,14 +100,38 @@ namespace TabloidMVC.Controllers
             return View(userProfile);
         }
 
+        //public ActionResult Details(int id)
+        //{
+        //    UserProfile userProfile = _userProfileRepository.GetUserProfileById(id);
+
+        //    //We used the items declared above.....to pair our new lists/paramenters with the requested Id 
+        //    //and then shoved it into a profileVIEW, then we returned it. (Had to change details panel)
+        //    if (userProfile == null)
+        //    {
+
+        //        // userProfile = _postRepository.GetUserPostById(id, userId);
+        //        if (userProfile == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //    }
+
+        //    return View(userProfile);
+        //}
+
         public ActionResult Edit(int id)
         {
             List<UserType> userTypes = _userTypeRepository.GetAllUserTypes();
 
+            
+            UserProfile userProfile = _userProfileRepository.GetUserProfileById(id);
+
+
             UserTypeEditViewModel vm = new UserTypeEditViewModel()
             {
-                UserProfile = _userProfileRepository.GetUserProfileById(id),
+                UserProfile = userProfile,
                 UserTypes = userTypes
+
             };
 
             //if (owner == null)
@@ -112,6 +148,7 @@ namespace TabloidMVC.Controllers
         {
             try
             {
+               
                 _userProfileRepository.UpdateUserProfile(userProfile);
 
                 return RedirectToAction("Index");
@@ -121,46 +158,6 @@ namespace TabloidMVC.Controllers
                 return View(userProfile);
             }
         }
-        //// GET: UserProfileController/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: UserProfileController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: UserProfileController/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: UserProfileController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+     
     }
     }

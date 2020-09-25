@@ -55,7 +55,7 @@ namespace TabloidMVC.Repositories
             }
         }
         //GetAllProcess being Initiated below
-        public List<UserProfile> GetAllUsers()
+        public List<UserProfile> GetAllUserProfiles()
         {
             using (var conn = Connection)
             {
