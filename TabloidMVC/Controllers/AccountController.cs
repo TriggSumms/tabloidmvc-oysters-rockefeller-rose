@@ -71,11 +71,6 @@ namespace TabloidMVC.Controllers
         /// <returns></returns>
         /// 
 
-        //public ActionResult Index()
-        //{
-        //    var userProfiles = _userProfileRepository.GetAllUserProfiles();
-        //    return View(userProfiles);
-        //}
         public IActionResult Index()
         {
             List<UserProfile> userProfiles = _userProfileRepository.GetAllUserProfiles();
@@ -91,7 +86,7 @@ namespace TabloidMVC.Controllers
             if (userProfile == null)
             {
 
-                // userProfile = _postRepository.GetUserPostById(id, userId);
+                
                 if (userProfile == null)
                 {
                     return NotFound();
@@ -99,25 +94,6 @@ namespace TabloidMVC.Controllers
             }
             return View(userProfile);
         }
-
-        //public ActionResult Details(int id)
-        //{
-        //    UserProfile userProfile = _userProfileRepository.GetUserProfileById(id);
-
-        //    //We used the items declared above.....to pair our new lists/paramenters with the requested Id 
-        //    //and then shoved it into a profileVIEW, then we returned it. (Had to change details panel)
-        //    if (userProfile == null)
-        //    {
-
-        //        // userProfile = _postRepository.GetUserPostById(id, userId);
-        //        if (userProfile == null)
-        //        {
-        //            return NotFound();
-        //        }
-        //    }
-
-        //    return View(userProfile);
-        //}
 
         public ActionResult Edit(int id)
         {
@@ -130,14 +106,13 @@ namespace TabloidMVC.Controllers
             UserTypeEditViewModel vm = new UserTypeEditViewModel()
             {
                 UserProfile = userProfile,
-                UserTypes = userTypes
+                UserTypes= userTypes
 
             };
-
-            //if (owner == null)
-            //{
-            //    return NotFound();
-            //}
+            if (vm.UserProfile == null)
+            {
+                return NotFound();
+            }
 
             return View(vm);
         }

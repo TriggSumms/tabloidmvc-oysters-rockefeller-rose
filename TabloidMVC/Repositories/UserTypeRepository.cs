@@ -10,7 +10,7 @@ namespace TabloidMVC.Repositories
         public UserTypeRepository(IConfiguration config) : base(config) { }
 
 
-        //GetAllProcess being Initiated below
+
         public List<UserType> GetAllUserTypes()
         {
             using (var conn = Connection)
@@ -22,9 +22,7 @@ namespace TabloidMVC.Repositories
                        SELECT Id, Name
                             FROM UserType
                         ";
-                    // cmd.Parameters.AddWithValue("@email", email);
 
-                    //UserProfile userProfile = null;
                     var reader = cmd.ExecuteReader();
 
 
@@ -50,11 +48,7 @@ namespace TabloidMVC.Repositories
             }
         }
 
-
-     
-
-
-            }
-        }
+    }
+  }
 
 

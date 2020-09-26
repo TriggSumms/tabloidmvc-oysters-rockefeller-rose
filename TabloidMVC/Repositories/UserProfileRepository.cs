@@ -236,7 +236,6 @@ namespace TabloidMVC.Repositories
                     cmd.Parameters.AddWithValue("@displayName", userProfile.DisplayName);
                     cmd.Parameters.AddWithValue("@createDateTime", userProfile.CreateDateTime);
                     cmd.Parameters.AddWithValue("@imageLocation", DbUtils.ValueOrDBNull(userProfile.ImageLocation));
-                    //cmd.Parameters.AddWithValue("@isApproved", post.IsApproved);
                     cmd.Parameters.AddWithValue("@userTypeId", userProfile.UserTypeId);
                     cmd.ExecuteNonQuery();
                 }
