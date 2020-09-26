@@ -4,6 +4,8 @@
     ViewData["Title"] = "Details";
 }
 
+@*Both Views change to show usertypeName in place of the displayname*@
+
 <h1>Details on the User </h1>
 
 <div>
@@ -26,7 +28,7 @@
             @Html.DisplayNameFor(model => model.DisplayName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DisplayName)
+            @Html.DisplayFor(model => model.UserType.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)

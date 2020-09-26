@@ -117,9 +117,7 @@ namespace TabloidMVC.Repositories
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
                             ORDER BY DisplayName
                         ";
-                    // cmd.Parameters.AddWithValue("@email", email);
 
-                    //UserProfile userProfile = null;
                     var reader = cmd.ExecuteReader();
 
 
@@ -176,7 +174,6 @@ namespace TabloidMVC.Repositories
                         cmd.Parameters.AddWithValue("@id", id);
                         var reader = cmd.ExecuteReader();
 
-                        //Category category = null;
 
                         if (reader.Read())
                         {

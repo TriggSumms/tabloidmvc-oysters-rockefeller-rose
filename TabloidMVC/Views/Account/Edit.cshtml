@@ -10,66 +10,67 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input asp-for="UserProfile.Id" type="hidden" class="form-control" />
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+
+                    <input asp-for="UserProfile.Id" type="hidden" class="form-control" />
+                    <span asp-validation-for="UserProfile.Id" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    @*<label asp-for="UserProfile.FullName" class="control-label"></label>*@
+                    <input asp-for="UserProfile.FullName" hidden class="form-control"  class="form-control"  />
+                    <span asp-validation-for="UserProfile.FullName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                   @* <label asp-for="UserProfile.DisplayName" display="hidden" class="control-label"></label>*@
+                    <input asp-for="UserProfile.DisplayName" hidden class="form-control"  />
+                    <span asp-validation-for="UserProfile.DisplayName" display="hidden" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                @*<label asp-for="UserProfile.FirstName" display="hidden" class="control-label"></label>*@
+                <input asp-for="UserProfile.FirstName" hidden class="form-control"  />
+                <span asp-validation-for="UserProfile.FirstName" display="hidden" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserProfile.FullName" class="control-label"></label>
-                <input asp-for="UserProfile.FullName" class="form-control" />
-                <span asp-validation-for="UserProfile.FullName" class="text-danger"></span>
+                @*<label asp-for="UserProfile.LastName" display="hidden" class="control-label"></label>*@
+                <input asp-for="UserProfile.LastName" hidden class="form-control"  />
+                <span asp-validation-for="UserProfile.LastName" display="hidden" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="UserProfile.DisplayName" class="control-label"></label>
-                <input asp-for="UserProfile.DisplayName" class="form-control" />
-                <span asp-validation-for="UserProfile.DisplayName" class="text-danger"></span>
-            </div>
-            @*<div class="form-group">
-            <label asp-for="UserProfile.FirstName" class="control-label"></label>
-            <input asp-for="UserProfile.FirstName" class="form-control" />
-            <span asp-validation-for="UserProfile.FirstName" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="UserProfile.LastName" class="control-label"></label>
-            <input asp-for="UserProfile.LastName" class="form-control" />
-            <span asp-validation-for="UserProfile.LastName" class="text-danger"></span>
-        </div>*@
-
-            @*<div class="form-group">
-            <label asp-for="UserProfile.Email" class="control-label"></label>
-            <input asp-for="UserProfile.Email" class="form-control" />
-            <span asp-validation-for="UserProfile.Email" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="UserProfile.CreateDateTime" class="control-label"></label>
-            <input asp-for="UserProfile.CreateDateTime" class="form-control" />
-            <span asp-validation-for="UserProfile.CreateDateTime" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="UserProfile.ImageLocation" class="control-label"></label>
-            <input asp-for="UserProfile.ImageLocation" class="form-control" />
-            <span asp-validation-for="UserProfile.ImageLocation" class="text-danger"></span>
-        </div>*@
-            <div class="form-group">
-                <label asp-for="UserProfile.UserTypeId" class="control-label"></label>
-                <select asp-for="UserProfile.UserTypeId" class="form-control">
-
-                    @foreach (var userType in Model.UserTypes)
-                    {
-                        <option value="@userType.Id">@userType.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="UserProfile.UserTypeId" class="text-danger"></span>
+                <div class="form-group">
+                @*<label asp-for="UserProfile.Email" display="hidden" class="control-label"></label>*@
+                <input asp-for="UserProfile.Email" hidden class="form-control"  />
+                <span asp-validation-for="UserProfile.Email" display="hidden" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-               @* <input type="submit" value="CANCEL" asp-action="Index" class="btn btn-light" /> |*@
+               @* <label asp-for="UserProfile.CreateDateTime" display="hidden" class="control-label"></label>*@
+                <input asp-for="UserProfile.CreateDateTime" hidden class="form-control"  />
+                <span asp-validation-for="UserProfile.CreateDateTime" display="hidden" class="text-danger"></span>
             </div>
+            <div class="form-group" >
+               @* <label asp-for="UserProfile.ImageLocation"  display="hidden" class="control-label"></label>*@
+                <input asp-for="UserProfile.ImageLocation" hidden class="form-control"  />
+                <span asp-validation-for="UserProfile.ImageLocation" display="hidden" class="text-danger"></span>
+            </div>
+                <div class="form-group">
+                    <label asp-for="UserProfile.UserTypeId" display="hidden" class="control-label"></label>
+                    <select asp-for="UserProfile.UserTypeId" class="form-control">
 
-        </form>
-    </div>
+                        @foreach (var userType in Model.UserTypeOptions)
+                        {
+                            <option value="@userType.Id">@userType.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="UserProfile.UserTypeId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                     <input type="submit" value="CANCEL" asp-action="Index" class="btn btn-light" /> |
+                </div>
+            </form>
+</div>
 </div>
 
 <div>

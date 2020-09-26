@@ -4,6 +4,9 @@
     ViewData["Title"] = "Index";
 }
 
+
+@*Both Views change to show usertypeName in place of the displayname*@
+
 <h1>Index</h1>
 
 <p>
@@ -13,8 +16,8 @@
     <thead>
         <tr>
             @*<th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
@@ -33,9 +36,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ImageLocation)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserType.Name)
-            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.UserType.Name)
+                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.FullName)
             </th>
@@ -43,43 +46,44 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DisplayName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserType.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserType.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageLocation)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.UserType.Name)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
 
 
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-               
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
 
-            </td>
-        </tr>
-}
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

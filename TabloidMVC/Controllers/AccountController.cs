@@ -106,7 +106,8 @@ namespace TabloidMVC.Controllers
             UserTypeEditViewModel vm = new UserTypeEditViewModel()
             {
                 UserProfile = userProfile,
-                UserTypes= userTypes
+                
+                UserTypeOptions = userTypes
 
             };
             if (vm.UserProfile == null)
