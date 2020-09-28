@@ -239,6 +239,53 @@ namespace TabloidMVC.Repositories
             }
         }
 
+        //public void AddUserProfile(UserProfile userProfile)
+        //{
+        //    using (var conn = Connection)
+        //    {
+        //        conn.Open();
+        //        using (var cmd = conn.CreateCommand())
+        //        {
+        //            cmd.CommandText = @"
+        //                    INSERT INTO  UserProfile 
+        //                    (Email, FirstName, LastName, DisplayName,CreateDateTime, ImageLocation, UserTypeId)
+        //                    OUTPUT INSERTED.ID
+        //                     VALUES (@email, @firstName, @lastName, @displayName,  @createDateTime, @imageLocation, @userTypeId)";
+                          
+        //            cmd.Parameters.AddWithValue("@id", userProfile.Id);
+        //            cmd.Parameters.AddWithValue("@email", userProfile.Email);
+        //            cmd.Parameters.AddWithValue("@firstName", userProfile.FirstName);
+        //            cmd.Parameters.AddWithValue("@lastName", userProfile.LastName);
+        //            cmd.Parameters.AddWithValue("@displayName", userProfile.DisplayName);
+        //            cmd.Parameters.AddWithValue("@createDateTime", userProfile.CreateDateTime);
+        //            cmd.Parameters.AddWithValue("@imageLocation", DbUtils.ValueOrDBNull(userProfile.ImageLocation));
+        //            cmd.Parameters.AddWithValue("@userTypeId", userProfile.UserTypeId);
+
+        //            int id = (int)cmd.ExecuteScalar();
+
+        //            userProfile.Id = id;
+        //        }
+        //    }
+        //}
+
+        //public void DeleteC(int userProfileId)
+        //{
+        //    using var conn = Connection;
+        //    {
+        //        conn.Open();
+        //        using (var cmd = conn.CreateCommand())
+        //        {
+        //            cmd.CommandText = @"
+        //                    DELETE FROM UserProfile
+        //                    WHERE Id = @id";
+
+        //            cmd.Parameters.AddWithValue("@id", userProfileId);
+
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //    }
+        //}
+
     }
 }
 

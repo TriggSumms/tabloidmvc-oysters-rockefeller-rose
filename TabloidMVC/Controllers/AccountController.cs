@@ -95,6 +95,11 @@ namespace TabloidMVC.Controllers
             return View(userProfile);
         }
 
+
+
+
+
+
         public ActionResult Edit(int id)
         {
             List<UserType> userTypes = _userTypeRepository.GetAllUserTypes();

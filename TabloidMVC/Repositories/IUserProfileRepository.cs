@@ -16,5 +16,8 @@ namespace TabloidMVC.Repositories
 
         UserProfile GetByCommentUserId(int id);
 
+        //void AddUserProfile(UserProfile userProfile);
+        //void DeleteUserProfile(int userProfileId);
+
     }
 }

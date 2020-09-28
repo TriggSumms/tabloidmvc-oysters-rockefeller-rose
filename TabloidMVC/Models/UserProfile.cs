@@ -13,6 +13,8 @@ namespace TabloidMVC.Models
         public string LastName { get; set; }
         public string DisplayName { get; set; }
         public string Email { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime CreateDateTime { get; set; }
         public string ImageLocation { get; set; }
         public int UserTypeId { get; set; }
