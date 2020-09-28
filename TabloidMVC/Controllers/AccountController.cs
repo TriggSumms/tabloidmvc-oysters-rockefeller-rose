@@ -1,21 +1,28 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using TabloidMVC.Models;
+using TabloidMVC.Models.ViewModels;
 using TabloidMVC.Repositories;
+
 
 namespace TabloidMVC.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IUserProfileRepository _userProfileRepository;
+        private readonly IUserTypeRepository _userTypeRepository;
 
-        public AccountController(IUserProfileRepository userProfileRepository)
+        public AccountController(
+            IUserProfileRepository userProfileRepository,
+            IUserTypeRepository userTypeRepository)
         {
             _userProfileRepository = userProfileRepository;
+            _userTypeRepository = userTypeRepository;
         }
 
         public IActionResult Login()
@@ -55,5 +62,83 @@ namespace TabloidMVC.Controllers
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+
+
+        /// <summary>
+        /// THIS BEGINS THE USER PROFILE CONTROLLER VIEWS
+        /// </summary>
+        /// <returns></returns>
+        /// 
+
+        public IActionResult Index()
+        {
+            List<UserProfile> userProfiles = _userProfileRepository.GetAllUserProfiles();
+
+            return View(userProfiles);
+        }
+
+
+
+        public ActionResult Details(int id)
+        {
+            var userProfile = _userProfileRepository.GetUserProfileById(id);
+            if (userProfile == null)
+            {
+
+                
+                if (userProfile == null)
+                {
+                    return NotFound();
+                }
+            }
+            return View(userProfile);
+        }
+
+
+
+
+
+
+        public ActionResult Edit(int id)
+        {
+            List<UserType> userTypes = _userTypeRepository.GetAllUserTypes();
+
+            
+            UserProfile userProfile = _userProfileRepository.GetUserProfileById(id);
+
+
+            UserTypeEditViewModel vm = new UserTypeEditViewModel()
+            {
+                UserProfile = userProfile,
+                
+                UserTypeOptions = userTypes
+
+            };
+            if (vm.UserProfile == null)
+            {
+                return NotFound();
+            }
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, UserProfile userProfile)
+        {
+            try
+            {
+               
+                _userProfileRepository.UpdateUserProfile(userProfile);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View(userProfile);
+            }
+        }
+     
     }
-}
+    }
