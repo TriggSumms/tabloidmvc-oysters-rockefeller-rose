@@ -33,6 +33,7 @@ CREATE TABLE [UserProfile] (
   [LastName] nvarchar(50) NOT NULL,
   [Email] nvarchar(555) NOT NULL,
   [CreateDateTime] datetime NOT NULL,
+  [IsActive] bit NOT NULL,
   [ImageLocation] nvarchar(255),
   [UserTypeId] integer NOT NULL,
 

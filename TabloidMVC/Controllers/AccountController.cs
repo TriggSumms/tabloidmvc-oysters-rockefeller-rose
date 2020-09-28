@@ -40,6 +40,11 @@ namespace TabloidMVC.Controllers
                 ModelState.AddModelError("Email", "Invalid email");
                 return View();
             }
+            else if (userProfile.IsActive == false)
+            {
+                ModelState.AddModelError("Email", "User is Inactive");
+                return View();
+            }
 
             var claims = new List<Claim>
             {
@@ -74,8 +79,33 @@ namespace TabloidMVC.Controllers
         public IActionResult Index()
         {
             List<UserProfile> userProfiles = _userProfileRepository.GetAllUserProfiles();
+            List<UserProfile> activeUsers = new List<UserProfile>();
+            
+                foreach(var user in userProfiles)
+                {
+                    if (user.IsActive == true)
+                    {
+                    activeUsers.Add(user);
+                    }
+                };
 
-            return View(userProfiles);
+            return View(activeUsers);
+        }
+
+        public IActionResult Inactive()
+        {
+            List<UserProfile> userProfiles = _userProfileRepository.GetAllUserProfiles();
+            List<UserProfile> inactiveUsers = new List<UserProfile>();
+
+            foreach (var user in userProfiles)
+            {
+                if (user.IsActive == false)
+                {
+                    inactiveUsers.Add(user);
+                }
+            };
+
+            return View(inactiveUsers);
         }
 
 
@@ -139,6 +169,65 @@ namespace TabloidMVC.Controllers
                 return View(userProfile);
             }
         }
-     
+        public ActionResult Deactivate(int id)
+        {
+            UserProfile userProfile = _userProfileRepository.GetUserProfileById(id);
+            userProfile.IsActive = false;
+
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
+
+            return View(userProfile);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Deactivate(UserProfile userProfile)
+        {
+            try
+            {
+                
+                _userProfileRepository.UpdateUserProfile(userProfile);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return View(userProfile);
+            }
+        }
+        public ActionResult Reactivate(int id)
+        {
+            UserProfile userProfile = _userProfileRepository.GetUserProfileById(id);
+            userProfile.IsActive = true;
+
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
+
+            return View(userProfile);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Reactivate(UserProfile userProfile)
+        {
+            try
+            {
+
+                _userProfileRepository.UpdateUserProfile(userProfile);
+
+                return RedirectToAction("Inactive");
+            }
+            catch (Exception)
+            {
+                return View(userProfile);
+            }
+        }
+
     }
-    }
+}
+

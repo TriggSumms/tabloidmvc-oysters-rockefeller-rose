@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -18,7 +17,10 @@ namespace TabloidMVC.Controllers
         private readonly IPostRepository _postRepo;
         private readonly IUserProfileRepository _userRepo;
 
-        public CommentController(ICommentRepository commentRepository, IPostRepository postRepository, IUserProfileRepository userRepository)
+        public CommentController(
+            ICommentRepository commentRepository, 
+            IPostRepository postRepository, 
+            IUserProfileRepository userRepository)
         {
             _commentRepo = commentRepository;
             _postRepo = postRepository;
@@ -29,12 +31,10 @@ namespace TabloidMVC.Controllers
         {
             Post post = _postRepo.GetPublishedPostById(id);
             List<Comment> comments = _commentRepo.GetAllPostComments(id);
-            UserProfile user = _userRepo.GetByCommentUserId(post.UserProfileId);
             CommentViewModel vm = new CommentViewModel()
             {
                 Comments = comments,
-                Post = post,
-                User = user
+                Post = post
             };
             return View(vm);
         }
@@ -84,7 +84,7 @@ namespace TabloidMVC.Controllers
                 _commentRepo.Update(comment);
                 return RedirectToAction("Index", new { id = comment.PostId });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return View(comment);
             }
@@ -106,7 +106,7 @@ namespace TabloidMVC.Controllers
                 _commentRepo.Delete(id);
                 return RedirectToAction("Index", new { id = postId});
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return View(comment);
             }

@@ -21,11 +21,11 @@ SET IDENTITY_INSERT [Tag] OFF
 
 SET IDENTITY_INSERT [UserProfile] ON
 INSERT INTO [UserProfile] (
-	[Id], [FirstName], [LastName], [DisplayName], [Email], [CreateDateTime], [ImageLocation], [UserTypeId])
-VALUES (1, 'Admina', 'Strator', 'admin', 'admin@example.com', SYSDATETIME(), NULL, 1),
-(2, 'Chad', 'Yeeha', 'admin', 'chad@example.com', SYSDATETIME(), NULL, 1),
-(3, 'Tasha', 'Yeeeeeha', 'admin', 'tasha@example.com', SYSDATETIME(), NULL, 1),
-(4, 'Zach', 'Yurhahhhhhh', 'admin', 'zach@example.com', SYSDATETIME(), NULL, 1);
+	[Id], [FirstName], [LastName], [DisplayName], [Email], [CreateDateTime], [IsActive], [ImageLocation], [UserTypeId])
+VALUES (1, 'Admina', 'Strator', 'admin', 'admin@example.com', SYSDATETIME(), 1, NULL, 1),
+(2, 'Big', 'Rick', 'adminRick', 'chad@example.com', SYSDATETIME(), 1, NULL, 1),
+(3, 'Tasha', 'Yeeeeeha', 'author', 'tasha@example.com', SYSDATETIME(), 1, NULL, 1),
+(4, 'Zach', 'Yurhahhhhhh', 'author', 'zach@example.com', SYSDATETIME(), 1, NULL, 1);
 SET IDENTITY_INSERT [UserProfile] OFF
 
 SET IDENTITY_INSERT [Post] ON
