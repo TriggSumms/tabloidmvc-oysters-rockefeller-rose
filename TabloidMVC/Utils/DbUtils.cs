@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Data.SqlClient;
+using TabloidMVC.Models;
 
 namespace TabloidMVC.Utils
 {
@@ -28,6 +29,8 @@ namespace TabloidMVC.Utils
         public static object ValueOrDBNull(object value)
         {
             return value ?? DBNull.Value;
-        } 
+        }
+
+
     }
 }
