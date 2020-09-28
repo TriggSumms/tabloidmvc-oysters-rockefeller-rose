@@ -12,42 +12,45 @@
                 <h1 class="text-black-50">@Model.Category.Name</h1>
             </div>
             <div class="row justify-content-between">
-
-
                 <p class="text-secondary">Written by @Model.UserProfile.DisplayName</p>
 
                 <p class="text-black-50">Published on @Html.DisplayFor(model => model.PublishDateTime)</p>
-
-                <p class="text-secondary">Words in atricle = @Html.DisplayFor(model => model.Content))</p>
             </div>
-
-            @if (Model.EstimatedReadTime == 1)
-            {
-                <p class="text-black-50">Estimated Read Time: @Model.EstimatedReadTime min</p>
-            }
-            else
-            {
-                <p class="text-black-50">Estimated Read Time: @Model.EstimatedReadTime mins</p>
-            }
-
-            <div class="row">
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary mx-1" title="Edit">
-                    <i class="fas fa-pencil-alt"></i>
-                </a>
-                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-primary mx-1" title="Delete">
-                    <i class="fas fa-trash"></i>
-                </a>
+            <div class="row justify-content-between">
+                <p>
+                    @if (Model.EstimatedReadTime == 1)
+                    {
+                    <p class="text-black-50">Estimated Read Time: @Model.EstimatedReadTime min</p>
+                }
+                else
+                {
+                    <p class="text-black-50">Estimated Read Time: @Model.EstimatedReadTime mins</p>
+                }
+                </p>
+                <div>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary mx-1" title="Edit">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-primary mx-1" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </div>
             </div>
+            @if (!string.IsNullOrWhiteSpace(Model.ImageLocation))
+            {
+                <section class="row justify-content-center">
+                    <div>
+                        <img src="@Model.ImageLocation" />
+                    </div>
+                </section>
+            }
+
+            <p class="text-secondary">Words in atricle = @Html.DisplayFor(model => model.Content))</p>
+
+            
         </section>
         <hr />
-        @if (!string.IsNullOrWhiteSpace(Model.ImageLocation))
-        {
-            <section class="row justify-content-center">
-                <div>
-                    <img src="@Model.ImageLocation" />
-                </div>
-            </section>
-        }
+        
         <section class="row post__content">
             <p class="col-sm-12 mt-5">@Html.DisplayFor(model => model.Content)</p>
         </section>

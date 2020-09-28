@@ -36,16 +36,19 @@ namespace TabloidMVC.Models
 
         public int EstimatedReadTime
         {
-            get
-            {
-                int roundedTime;
-                    
+            get {
+                    int roundedTime = 0;
+
+                if (Content != null)
+                { 
+
                     int wordCount = Content.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length;
-                    double exactTime = wordCount/200;
+                    double exactTime = wordCount/250;
                     roundedTime = (int)Math.Ceiling(exactTime);
-                
-                return roundedTime;
-            }
+                }
+                    return roundedTime;
+                }
+            
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿
 
 SELECT *
-FROM Post
-WHERE Id = 5
+
