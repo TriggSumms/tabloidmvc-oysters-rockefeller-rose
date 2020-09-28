@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Tabloid</title>
 
-    @{int user = GetCurrentUserId(); }
     <!-- Font Awesome icons (free version)-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -37,15 +36,9 @@
                             <li class="nav-item mx-0 mx-lg-1">
                                 <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Post" asp-action="Index">POSTS</a>
                             </li>
-                            @{
-                                if (user.UserType == 1)
-                                {
-                                    <li class="nav-item mx-0 mx-lg-1">
-                                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Tag" asp-action="Index">TAG MANAGEMENT</a>
-                                    </li>
-                                }
-                            }
-                            
+                            <li class="nav-item mx-0 mx-lg-1">
+                                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Tag" asp-action="Index">TAG MANAGEMENT</a>
+                            </li>
                             <li class="nav-item mx-0 mx-lg-1">
                                 <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Category" asp-action="Index">CATEGORIES</a>
                             </li>
@@ -76,9 +69,3 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
-
-@{int GetCurrentUserId()
-    {
-        string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        return int.Parse(id);
-    }}
