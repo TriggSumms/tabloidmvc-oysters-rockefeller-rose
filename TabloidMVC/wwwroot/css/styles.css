@@ -1688,6 +1688,16 @@ pre {
     }
 }
 
+.users-container {
+    display: flex;
+    justify-content: center;
+}
+
+.users-table {
+    margin-top: 40px;
+    width: 80%;
+}
+
 .table {
     width: 100%;
     margin-bottom: 1rem;
@@ -10807,3 +10817,4 @@ form .row:first-child .floating-label-form-group {
         margin-top: calc(2rem + 72px);
     }
 }
+

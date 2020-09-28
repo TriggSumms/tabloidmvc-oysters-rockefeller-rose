@@ -11,13 +11,19 @@
         <h1>Index</h1>
 
         <p>
-            <a asp-action="Inactive" class="btn btn-primary">View Deactivated</a>
+            <a asp-action="Index" class="btn btn-primary">View Active</a>
         </p>
         <table class="table">
             <thead>
                 <tr>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.Id)
+                        </th>*@
                     <th>
-                        Name
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.DisplayName)
@@ -29,7 +35,10 @@
                         @Html.DisplayNameFor(model => model.CreateDateTime)
                     </th>
                     <th>
-                        Status
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </th>
+                    <th>
+                        Active
                     </th>
                     <th></th>
                 </tr>
@@ -40,10 +49,13 @@
 
                     <tr>
                         @*<td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>*@
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>*@
                         <td>
-                            @Html.DisplayFor(modelItem => item.FullName)
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.UserType.Name)
@@ -55,13 +67,16 @@
                             @Html.DisplayFor(modelItem => item.CreateDateTime)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
                             @{ if (item.IsActive == true)
                                 {
-                                    <text>Active</text>
+                                    <text>Activated</text>
                                 }
                                 else
                                 {
-                                    <text >Deactivated</text>
+                                    <text>Deactivated</text>
                                 }
                             }
                         </td>

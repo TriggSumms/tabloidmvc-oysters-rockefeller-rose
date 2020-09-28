@@ -6,66 +6,67 @@
 }
 @{ int userId = GetCurrentUserId();}
 
+<main class="users-container">
+    <section class="users-table">
+        <h1>@Model.Post.Title</h1>
 
+        <p>
+            <a class="btn btn-outline-primary mx-1" asp-route-id="@Model.Post.Id" asp-action="Create">Add Comment</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        User
+                    </th>
+                    <th>
+                        Subject
+                    </th>
+                    <th>
+                        Content
+                    </th>
+                    <th>
+                        Creation Date
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Comments)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserProfile.DisplayName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subject)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Content)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreateDateTime)
+                        </td>
+                        <td>
+                            @{if (userId == item.UserProfileId)
+                                { <text><a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary mx-1" title="Edit">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a></text>}
+                            }
 
-
-<h1>@Model.Post.Title</h1>
-
-<p>
-    <a class="btn btn-outline-primary mx-1" asp-route-id="@Model.Post.Id" asp-action="Create">Add Comment</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                User
-            </th>
-            <th>
-                Subject
-            </th>
-            <th>
-                Content
-            </th>
-            <th>
-                Creation Date
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Comments)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserProfile.DisplayName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Subject)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Content)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreateDateTime)
-                </td>
-                <td>
-                    @{if (userId == item.UserProfileId)
-                        { <text><a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary mx-1" title="Edit">
-        <i class="fas fa-pencil-alt"></i>
-</a></text>}
-                    }
-                    
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-primary mx-1" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-<div>
-    <a class="btn btn-outline-primary mx-1" asp-controller="Post" asp-action="Details" asp-route-id="@Model.Post.Id">Back to Post</a>
-</div>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-primary mx-1" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div>
+            <a class="btn btn-outline-primary mx-1" asp-controller="Post" asp-action="Details" asp-route-id="@Model.Post.Id">Back to Post</a>
+        </div>
+    </section>
+</main>
 
 @{int GetCurrentUserId()
     {

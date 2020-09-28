@@ -9,38 +9,41 @@
 
 
 
+<main class="users-container">
+    <section class="users-table">
+        <h1>Are you sure you want to delete your Category ....@Model.Name? </h1>
+        @*<h4>Cmon now...your gonna delete your "hot ToPiC NaMe" below....</h4>*@
+        <div>
 
-<h1>Are you sure you want to delete your Category ....@Model.Name? </h1>
-@*<h4>Cmon now...your gonna delete your "hot ToPiC NaMe" below....</h4>*@
-<div>
+            <hr />
+            <dl class="row">
 
-    <hr />
-    <dl class="row">
-        
-        @*<dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>*@
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-    </dl>
+                @*<dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Id)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Id)
+                    </dd>*@
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+            </dl>
 
-    <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <input type="submit" value="NEVERMIND, DO NOT DELETE" asp-action="Index" class="btn btn-light" /> 
+            <form asp-action="Delete">
+                <input type="submit" value="Delete" class="btn btn-danger" /> |
+                <input type="submit" value="NEVERMIND, DO NOT DELETE" asp-action="Index" class="btn btn-light" />
 
-    </form>
-</div>
+            </form>
+        </div>
+    </section>
+</main>
 
 
 
-@* POSSIBLE ROUTE FORM MODAL DELETE BUTTON *@
-@*https://www.w3schools.com/howto/howto_css_delete_modal.asp*@
+        @* POSSIBLE ROUTE FORM MODAL DELETE BUTTON *@
+        @*https://www.w3schools.com/howto/howto_css_delete_modal.asp*@
 
 
