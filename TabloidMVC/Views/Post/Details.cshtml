@@ -16,15 +16,15 @@
 
                 <p class="text-black-50">Published on @Html.DisplayFor(model => model.PublishDateTime)</p>
             </div>
-            <div class="row float-left">
+            <div class="row justify-content-between">
                 <p>
                     @if (Model.EstimatedReadTime == 1)
                     {
-                    <p class="text-black-50">Estimated Read Time: @Model.EstimatedReadTime min</p>
+                    <p class="text-black-50">Estimated Reading Time: @Model.EstimatedReadTime min</p>
                 }
                 else
                 {
-                    <p class="text-black-50">Estimated Read Time: @Model.EstimatedReadTime mins</p>
+                    <p class="text-black-50">Estimated Reading Time: @Model.EstimatedReadTime mins</p>
                 }
                 </p>
                 <div>

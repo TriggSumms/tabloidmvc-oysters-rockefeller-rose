@@ -41,17 +41,15 @@ namespace TabloidMVC.Models
 
                 if (Content != null)
                 { 
-
                     int wordCount = Content.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length;
-                    double exactTime = wordCount/265;
+                    double exactTime = wordCount/250;
                     roundedTime = (int)Math.Ceiling(exactTime);
                         if (roundedTime == 0)
                     {
                         roundedTime = 1;
                     }
                 }
-                    
-                    
+               
                     return roundedTime;
                 }
             
