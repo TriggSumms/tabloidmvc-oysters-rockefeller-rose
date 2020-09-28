@@ -17,16 +17,18 @@
                 <p class="text-black-50">Published on @Html.DisplayFor(model => model.PublishDateTime)</p>
             </div>
             <div class="row justify-content-between">
-                <p>
+                <div>
+                        @*if the readtime is 1 minute, display "1 min"
+                        otherwise, display "[x] mins"*@
                     @if (Model.EstimatedReadTime == 1)
                     {
-                    <p class="text-black-50">Estimated Reading Time: @Model.EstimatedReadTime min</p>
-                }
-                else
-                {
-                    <p class="text-black-50">Estimated Reading Time: @Model.EstimatedReadTime mins</p>
-                }
-                </p>
+                        <p class="text-black-50">Estimated Reading Time: @Model.EstimatedReadTime min</p>
+                    }
+                    else
+                    {
+                        <p class="text-black-50">Estimated Reading Time: @Model.EstimatedReadTime mins</p>
+                    }
+                </div>
                 <div>
                     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary mx-1" title="Edit">
                         <i class="fas fa-pencil-alt"></i>
